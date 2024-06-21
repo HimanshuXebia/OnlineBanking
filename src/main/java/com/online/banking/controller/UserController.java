@@ -32,5 +32,17 @@ public class UserController {
 		List<Users> userList = userService.getAllUser(pageNumber, pageSize);
 		return ResponseEntity.status(HttpStatus.OK).body(userList);
 	}
+	
+
+	@GetMapping("/user/")
+	public ResponseEntity<Object> getUserById(Long id)
+			{
+//		List<Users> userList = userService.getAllUser(pageNumber, pageSize);
+		Object user = userService.getUserById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(user);
+	}
+
+	
+	
 
 }

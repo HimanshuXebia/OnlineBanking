@@ -32,4 +32,10 @@ public class UserServiceImpl implements UserService {
 		return userPage.getContent();
 	}
 
+	@Override
+	public Object getUserById(Long id) {
+		Optional<Users> userOptional = registerUserRepository.findById(id);
+		return userOptional.orElse(null);
+	}
+
 }

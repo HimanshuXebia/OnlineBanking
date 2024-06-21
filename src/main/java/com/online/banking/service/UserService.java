@@ -7,5 +7,6 @@ import com.online.banking.entity.Users;
 public interface UserService {
 
 	List<Users> getAllUser(Integer pageNumber, Integer pageSize);
+	Object getUserById(Long id);
 
 }
