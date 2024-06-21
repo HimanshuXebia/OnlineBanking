@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 	public List<Users> getAllUser(Integer pageNumber, Integer pageSize) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		Page<Users> userPage = registerUserRepository.findAll(pageable);
-		Optional<Users> registerOptional = registerUserRepository.findById(1L);
+//		Optional<Users> registerOptional = registerUserRepository.findById(1L);
 		return userPage.getContent();
 	}
 
@@ -38,4 +38,12 @@ public class UserServiceImpl implements UserService {
 		return userOptional.orElse(null);
 	}
 
+	@Override
+	public void deleteUserById(Long id) {
+		
+		registerUserRepository.deleteById(id);
+		
+	}
+
+	
 }

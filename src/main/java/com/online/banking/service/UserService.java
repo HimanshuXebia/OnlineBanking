@@ -8,5 +8,6 @@ public interface UserService {
 
 	List<Users> getAllUser(Integer pageNumber, Integer pageSize);
 	Object getUserById(Long id);
+	void deleteUserById(Long id);
 
 }
