@@ -63,6 +63,12 @@ public class Users implements Serializable {
 	@Column
 	private LocalDateTime forgotPasswordOtpTime;
 
+	@Column
+	private LocalDateTime createdDate = LocalDateTime.now();
+
+	@Column
+	private LocalDateTime deletedDate;
+
 	public String getEmail() {
 		return email;
 	}

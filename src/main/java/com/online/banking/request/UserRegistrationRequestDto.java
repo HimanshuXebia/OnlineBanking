@@ -12,7 +12,7 @@ public class UserRegistrationRequestDto {
 	@NotEmpty(message = "Please enter valid user name")
 	private String userName;
 
-	@NotEmpty(message = "Please enter valid user name") 
+	@NotEmpty(message = "Please enter valid first name") 
 	private String firstName;
 
 	private String lastName;

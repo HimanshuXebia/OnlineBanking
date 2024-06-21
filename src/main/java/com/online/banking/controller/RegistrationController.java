@@ -31,7 +31,5 @@ public class RegistrationController {
 		String response = registrationService.registerUser(userRegistrationRequestDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
-	
-	
 
 }
