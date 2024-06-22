@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -21,13 +22,17 @@ public class Users implements Serializable {
 	@Column
 	private Long id;
 
-	@Column(name = "email")
+	@NotEmpty(message = "Please enter a valid email")
+
+	@Column(nullable = false, unique = true)
 	private String email;
 
-	@Column
+	@NotEmpty(message = "Please enter a valid user name")
+	@Column(nullable = false, unique = true)
 	private String userName;
 
-	@Column
+//	@Column(nullable = false)
+	//Tried using nullable here to check if that solved the problem of allowing empty objects
 	private String firstName;
 
 	@Column
