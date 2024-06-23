@@ -1,5 +1,6 @@
 package com.online.banking.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +54,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Users> findByEmail(String email) {
 		return registerUserRepository.findByEmail(email);
+	}
+
+	@Override
+	public void softDeleteUserById(Long id) {
+		 Users user = registerUserRepository.findById(id).orElse(null);
+	        if (user != null) {
+	            user.setDeleted(true);
+	            user.setDeletedDate(LocalDateTime.now());
+	            registerUserRepository.save(user);
+	        }
+		
 	}
 
 }

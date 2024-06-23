@@ -73,6 +73,14 @@ public class Users implements Serializable {
 	@Column
 	private LocalDateTime deletedDate;
 
+	public LocalDateTime getDeletedDate() {
+		return deletedDate;
+	}
+
+	public void setDeletedDate(LocalDateTime deletedDate) {
+		this.deletedDate = deletedDate;
+	}
+
 	public String getEmail() {
 		return email;
 	}

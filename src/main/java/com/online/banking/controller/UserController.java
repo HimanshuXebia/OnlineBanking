@@ -63,5 +63,11 @@ public class UserController {
 	public void deleteUserById(Long id) {
 		userService.deleteUserById(id);
 	}
+	
+	 @DeleteMapping("/users/soft-delete-user")
+	    public ResponseEntity<String> softDeleteUser(Long id) {
+	        userService.softDeleteUserById(id);
+	        return ResponseEntity.status(HttpStatus.OK).body("User soft deleted successfully.");
+	    }
 
 }

@@ -15,5 +15,6 @@ public interface UserService {
 	List<Users> findByEmail(String email);
 
 	void deleteUserById(Long id);
+	void softDeleteUserById(Long id);
 
 }
