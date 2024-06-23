@@ -12,8 +12,8 @@ public class HealthCheckController {
 
 	@GetMapping("health-check")
 	public ResponseEntity<String> healthCheck() {
-		String s = null;
-		s.length();
+//		String s = null;
+//		s.length();
 		return ResponseEntity.status(HttpStatus.OK).body("{\"status \" :\"ok\"}");
 	}
 
