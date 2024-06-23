@@ -11,4 +11,5 @@ public interface UserService {
 	Users getUserById(Long id);
 	void softDeleteUser(Long id);
 	Users updateUserDetails(Long id, UserRegistrationRequestDto updatedUserDto);
+	List<Users> searchByUserNameOrEmail(String userName, String email);
 }

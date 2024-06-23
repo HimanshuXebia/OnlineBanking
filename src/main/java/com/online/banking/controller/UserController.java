@@ -40,26 +40,42 @@ public class UserController {
 		List<Users> userList = userService.getAllUser(pageNumber, pageSize);
 		return ResponseEntity.status(HttpStatus.OK).body(userList);
 	}
-	
-	
+
 	// API to get the user by the user id
 	@GetMapping("/user/{id}")
-	public ResponseEntity<Users> getUserById(@PathVariable Long id){
+	public ResponseEntity<Users> getUserById(@PathVariable Long id) {
 		Users user = userService.getUserById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
-	
+
 	// API to soft delete the user.
-	@DeleteMapping("/{id}")
-	public void softDeleteUser(@PathVariable Long id){
+	@DeleteMapping("/delete/{id}")
+	public void softDeleteUser(@PathVariable Long id) {
 		userService.softDeleteUser(id);
 	}
-	
+
 	// API to update user details.
-	@PutMapping("/{id}")
-	public ResponseEntity<Users> updateUserDetails(@PathVariable Long id, @RequestBody UserRegistrationRequestDto updatedUser){
+	@PutMapping("/update/{id}")
+	public ResponseEntity<Users> updateUserDetails(@PathVariable Long id,
+			@RequestBody UserRegistrationRequestDto updatedUser) {
 		Users user = userService.updateUserDetails(id, updatedUser);
 		return ResponseEntity.status(HttpStatus.OK).body(user);
+	}
+
+	// API to search user by username or email id
+	@GetMapping("/search")
+	public ResponseEntity<?> searchByUsernameOrEmail(@RequestParam(required = false) String userName,
+			@RequestParam(required = false) String email) {
+
+		if(userName == null && email == null) {
+			return ResponseEntity.badRequest().body("Provide with username or email id");
+		}else {
+			List<Users> user = userService.searchByUserNameOrEmail(userName, email);
+			if(user == null) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No users present in database");
+			}
+			return ResponseEntity.status(HttpStatus.OK).body(user);
+		}
 	}
 
 }

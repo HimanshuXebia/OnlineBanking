@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Users updateUserDetails(Long id, UserRegistrationRequestDto updatedUserDto) {
 		Optional<Users> optionalUser = registerUserRepository.findById(id);
+		System.out.println(updatedUserDto.getEmail());
 		if (optionalUser.isEmpty()) {
 			throw new RuntimeException("User not found");
 		}
@@ -65,6 +66,13 @@ public class UserServiceImpl implements UserService {
 
 		return registerUserRepository.save(user);
 
+	}
+
+	
+	// Implementing service to search user using username or email id
+	@Override
+	public List<Users> searchByUserNameOrEmail(String userName, String email) {
+		return registerUserRepository.findByUserNameOrEmail(userName, email);
 	}
 
 }
