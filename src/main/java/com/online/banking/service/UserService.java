@@ -18,6 +18,7 @@ public interface UserService {
 	Optional<Users> getUserById(Long userId);
 	void updateUser(Long userId, UserRegistrationRequestDto updateUserRequestDto) throws UserNotFoundException,OnlineBankingException;
 	void deleteUser(Long userId) throws UserNotFoundException;
+	Users findUser(String userName, String email) throws UserNotFoundException,OnlineBankingException;
 
 
 

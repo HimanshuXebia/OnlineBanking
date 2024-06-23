@@ -18,4 +18,6 @@ public interface RegisterUserRepository extends JpaRepository<Users, Long> {
 
 	Page<Users> findByIsDeletedFalse(Pageable pageable);
 
+	Users findUserByUserNameAndEmail(String userName, String email);
+
 }

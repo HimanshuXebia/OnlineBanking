@@ -79,6 +79,24 @@ public class UserServiceImpl implements UserService {
 		user.setDeletedDate(LocalDateTime.now());
 		registerUserRepository.save(user);
 	}
+	
+	//Find user using userName and email
+	@Override
+	public Users findUser(String userName,String email) throws UserNotFoundException,OnlineBankingException{
+    	if(userName==null) {
+    		throw new OnlineBankingException(HttpStatus.BAD_REQUEST,"Username is null,provide a valid username.");
+    	}
+    	if(email==null) {
+    		throw new OnlineBankingException(HttpStatus.BAD_REQUEST,"Username is null,provide a valid username.");
+    	}
+		Users user = registerUserRepository.findUserByUserNameAndEmail(userName,email);
+		if(user==null) {
+			throw new UserNotFoundException("User with username : ["+userName+"] and email : ["+email+"] doesn't exist");
+		}
+
+		return user;
+	}
+	
 
 
 }

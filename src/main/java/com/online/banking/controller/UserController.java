@@ -74,6 +74,13 @@ public class UserController {
     	return ResponseEntity.status(HttpStatus.OK).body("User Deleted successfully. [Soft-Delete]");
     	
     }
+    
+    @GetMapping("/users/find")
+    public ResponseEntity<Users> findUser(@RequestParam String userName,
+			@RequestParam String email) throws OnlineBankingException{
+    	Users user = userService.findUser(userName,email);
+    	return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
 	
 
 
