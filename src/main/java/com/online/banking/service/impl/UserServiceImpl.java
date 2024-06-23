@@ -40,10 +40,19 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deleteUserById(Long id) {
-		
+
 		registerUserRepository.deleteById(id);
-		
+
 	}
 
-	
+	@Override
+	public List<Users> findByUserName(String userName) {
+		return registerUserRepository.findByUserName(userName);
+	}
+
+	@Override
+	public List<Users> findByEmail(String email) {
+		return registerUserRepository.findByEmail(email);
+	}
+
 }

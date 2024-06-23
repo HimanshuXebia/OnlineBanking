@@ -23,7 +23,6 @@ public class Users implements Serializable {
 	private Long id;
 
 	@NotEmpty(message = "Please enter a valid email")
-
 	@Column(nullable = false, unique = true)
 	private String email;
 
