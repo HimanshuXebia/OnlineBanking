@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
     		throw new OnlineBankingException(HttpStatus.BAD_REQUEST,"Username is null,provide a valid username.");
     	}
     	if(email==null) {
-    		throw new OnlineBankingException(HttpStatus.BAD_REQUEST,"Username is null,provide a valid username.");
+    		throw new OnlineBankingException(HttpStatus.BAD_REQUEST,"email is null,provide a valid email.");
     	}
 		Users user = registerUserRepository.findUserByUserNameAndEmail(userName,email);
 		if(user==null) {
