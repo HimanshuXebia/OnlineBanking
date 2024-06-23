@@ -21,10 +21,12 @@ public class Users implements Serializable {
 	@Column
 	private Long id;
 
-	@Column(name = "email")
+	// Email should be unique in db
+	@Column(name = "email", unique=true)
 	private String email;
 
-	@Column
+	// Username should be unique in db
+	@Column(unique=true)
 	private String userName;
 
 	@Column

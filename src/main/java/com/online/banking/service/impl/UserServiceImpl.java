@@ -57,7 +57,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Users updateUserDetails(Long id, UserRegistrationRequestDto updatedUserDto) {
 		Optional<Users> optionalUser = registerUserRepository.findById(id);
-		System.out.println(updatedUserDto.getEmail());
 		if (optionalUser.isEmpty()) {
 			throw new RuntimeException("User not found");
 		}
