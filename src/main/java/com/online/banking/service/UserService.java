@@ -3,6 +3,8 @@ package com.online.banking.service;
 import java.util.List;
 
 import com.online.banking.entity.Users;
+import com.online.banking.request.UserRegistrationRequestDto;
+import com.online.banking.request.UserUpdateRequestDto;
 
 public interface UserService {
 
@@ -16,5 +18,6 @@ public interface UserService {
 
 	void deleteUserById(Long id);
 	void softDeleteUserById(Long id);
+	Users updateUser(Long id, UserRegistrationRequestDto updatedUser);
 
 }

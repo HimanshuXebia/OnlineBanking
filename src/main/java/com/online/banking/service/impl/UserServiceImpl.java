@@ -1,5 +1,15 @@
 package com.online.banking.service.impl;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.online.banking.dao.RegisterUserRepository;
+import com.online.banking.entity.Users;
+import com.online.banking.request.UserRegistrationRequestDto;
+import com.online.banking.request.UserUpdateRequestDto;
+import com.online.banking.service.RegistrationService;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -18,11 +28,13 @@ import com.online.banking.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	private final RegisterUserRepository registerUserRepository;
+	private final ModelMapper modelMapper;
 
 	@Autowired
-	public UserServiceImpl(RegisterUserRepository registerUserRepository) {
+	public UserServiceImpl(RegisterUserRepository registerUserRepository, ModelMapper modelMapper) {
 		super();
 		this.registerUserRepository = registerUserRepository;
+		this.modelMapper = modelMapper;
 	}
 
 	@Override
@@ -43,7 +55,6 @@ public class UserServiceImpl implements UserService {
 	public void deleteUserById(Long id) {
 
 		registerUserRepository.deleteById(id);
-
 	}
 
 	@Override
@@ -58,13 +69,26 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void softDeleteUserById(Long id) {
-		 Users user = registerUserRepository.findById(id).orElse(null);
-	        if (user != null) {
-	            user.setDeleted(true);
-	            user.setDeletedDate(LocalDateTime.now());
-	            registerUserRepository.save(user);
-	        }
-		
+		Users user = registerUserRepository.findById(id).orElse(null);
+		if (user != null) {
+			user.setDeleted(true);
+			user.setDeletedDate(LocalDateTime.now());
+			registerUserRepository.save(user);
+		}
+
+	}
+
+	@Override
+	public Users updateUser(Long id, UserRegistrationRequestDto userDto) {
+		Optional<Users> optionalUser = registerUserRepository.findById(id);
+		if (optionalUser.isEmpty()) {
+			throw new RuntimeException("User not found");
+		}
+		Users user = optionalUser.get();
+		modelMapper.map(userDto, user);
+
+		return registerUserRepository.save(user);
+
 	}
 
 }

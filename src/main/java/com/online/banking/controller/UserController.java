@@ -7,12 +7,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.online.banking.entity.Users;
+import com.online.banking.request.UserRegistrationRequestDto;
+import com.online.banking.request.UserUpdateRequestDto;
 import com.online.banking.service.UserService;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
 
 @RequestMapping("/api/v1/")
 @RestController
@@ -63,11 +69,18 @@ public class UserController {
 	public void deleteUserById(Long id) {
 		userService.deleteUserById(id);
 	}
-	
-	 @DeleteMapping("/users/soft-delete-user")
-	    public ResponseEntity<String> softDeleteUser(Long id) {
-	        userService.softDeleteUserById(id);
-	        return ResponseEntity.status(HttpStatus.OK).body("User soft deleted successfully.");
-	    }
+
+	@DeleteMapping("/users/soft-delete-user")
+	public ResponseEntity<String> softDeleteUser(Long id) {
+		userService.softDeleteUserById(id);
+		return ResponseEntity.status(HttpStatus.OK).body("User soft deleted successfully.");
+	}
+
+
+    @PutMapping("update-user/")
+    public ResponseEntity<Users> updateUserDetails( Long id, @RequestBody UserRegistrationRequestDto updatedUser){
+		Users user = userService.updateUser(id, updatedUser);
+		return ResponseEntity.status(HttpStatus.OK).body(user);
+	}
 
 }
