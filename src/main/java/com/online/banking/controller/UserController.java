@@ -65,7 +65,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 
-	@DeleteMapping("/users/delete")
+	@DeleteMapping("/users/delete/")
 	public void deleteUserById(Long id) {
 		userService.deleteUserById(id);
 	}
@@ -76,9 +76,8 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body("User soft deleted successfully.");
 	}
 
-
-    @PutMapping("update-user/")
-    public ResponseEntity<Users> updateUserDetails( Long id, @RequestBody UserRegistrationRequestDto updatedUser){
+	@PutMapping("/user/update-user/")
+	public ResponseEntity<Users> updateUserDetails(Long id, @RequestBody UserRegistrationRequestDto updatedUser) {
 		Users user = userService.updateUser(id, updatedUser);
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}

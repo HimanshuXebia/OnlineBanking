@@ -79,14 +79,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Users updateUser(Long id, UserRegistrationRequestDto userDto) {
-		Optional<Users> optionalUser = registerUserRepository.findById(id);
-		if (optionalUser.isEmpty()) {
+	public Users updateUser(Long id, UserRegistrationRequestDto updatedUser) {
+		Users user = registerUserRepository.findById(id).orElse(null);
+		System.out.println("user dto is: "+ updatedUser.getEmail());
+//		System.out.println(optionalUser.get().getEmail());
+		if (user.isDeleted() == true || user==null) {
 			throw new RuntimeException("User not found");
 		}
-		Users user = optionalUser.get();
-		modelMapper.map(userDto, user);
-
+		System.out.println("before mapping:"+ user.getEmail());
+		modelMapper.map(updatedUser, user);
+		System.out.println("after mapping:"+ user.getEmail());
 		return registerUserRepository.save(user);
 
 	}
