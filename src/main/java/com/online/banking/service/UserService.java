@@ -8,5 +8,5 @@ public interface UserService {
 
 	List<Users> getAllUser(Integer pageNumber, Integer pageSize);
 	Users getUserById(Long id);
-
+	void softDeleteUser(Long id);
 }

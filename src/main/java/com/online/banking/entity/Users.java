@@ -181,4 +181,12 @@ public class Users implements Serializable {
 		this.forgotPasswordOtpTime = forgotPasswordOtpTime;
 	}
 
+	public LocalDateTime getDeletedDate() {
+		return deletedDate;
+	}
+
+	public void setDeletedDate(LocalDateTime deletedDate) {
+		this.deletedDate = deletedDate;
+	}
+
 }

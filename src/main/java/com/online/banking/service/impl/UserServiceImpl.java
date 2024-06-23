@@ -1,5 +1,6 @@
 package com.online.banking.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
 		this.registerUserRepository = registerUserRepository;
 	}
 
+	// Implementing service to get all the users
 	@Override
 	public List<Users> getAllUser(Integer pageNumber, Integer pageSize) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
@@ -32,10 +34,19 @@ public class UserServiceImpl implements UserService {
 		return userPage.getContent();
 	}
 
+	// Implementing service to get user by id
 	@Override
 	public Users getUserById(Long id) {
 		Optional<Users> user = registerUserRepository.findById(id);
 		return user.orElse(null);
 	}
+	
+	// Implementing service for soft delete
+	public void softDeleteUser(Long userId) {
+        Users user = registerUserRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setDeleted(true);
+        user.setDeletedDate(LocalDateTime.now());
+        registerUserRepository.save(user);
+    }
 
 }
