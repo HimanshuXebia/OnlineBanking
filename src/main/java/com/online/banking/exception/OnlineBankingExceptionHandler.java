@@ -22,5 +22,10 @@ public class OnlineBankingExceptionHandler {
 				.body("Some thing is wrong. please try again later");
 
 	}
+	
+    @ExceptionHandler(value = { UserNotFoundException.class })
+    public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 
 }

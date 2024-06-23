@@ -3,12 +3,15 @@ package com.online.banking.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotBlank;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -23,7 +26,7 @@ public class Users implements Serializable {
 
 	@Column(name = "email")
 	private String email;
-
+	
 	@Column
 	private String userName;
 
@@ -179,6 +182,12 @@ public class Users implements Serializable {
 
 	public void setForgotPasswordOtpTime(LocalDateTime forgotPasswordOtpTime) {
 		this.forgotPasswordOtpTime = forgotPasswordOtpTime;
+	}
+	public LocalDateTime getDeletedDate() {
+		return deletedDate;
+	}
+	public void setDeletedDate(LocalDateTime deletedDate) {
+		this.deletedDate = deletedDate;
 	}
 
 }

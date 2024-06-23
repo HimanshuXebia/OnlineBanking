@@ -2,17 +2,18 @@ package com.online.banking.request;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
+//import jakarta.validation.constraints.NotBlank;
 
 public class UserRegistrationRequestDto {
 
 	
 	private String email;
 
-	@NotEmpty(message = "Please enter valid user name")
+	@NotBlank(message = "Please enter valid user name")
 	private String userName;
 
-	@NotEmpty(message = "Please enter valid first name") 
+	@NotBlank(message = "Please enter valid first name") 
 	private String firstName;
 
 	private String lastName;
