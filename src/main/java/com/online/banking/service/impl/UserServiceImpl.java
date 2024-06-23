@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.online.banking.dao.RegisterUserRepository;
@@ -28,8 +30,17 @@ public class UserServiceImpl implements UserService {
 	public List<Users> getAllUser(Integer pageNumber, Integer pageSize) {
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		Page<Users> userPage = registerUserRepository.findAll(pageable);
-		Optional<Users> registerOptional = registerUserRepository.findById(1L);
+
 		return userPage.getContent();
 	}
+	//Get user by userId
+	@Override
+	public Optional<Users> getUserById(Long userId) {
+		if(userId==null) {
+			return null;
+		}
+		return registerUserRepository.findById(userId);
+	}
+
 
 }

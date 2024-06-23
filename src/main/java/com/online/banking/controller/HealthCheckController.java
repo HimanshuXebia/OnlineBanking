@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/")
 public class HealthCheckController {
-
 	@GetMapping("health-check")
 	public ResponseEntity<String> healthCheck() {
 //		String s = null;

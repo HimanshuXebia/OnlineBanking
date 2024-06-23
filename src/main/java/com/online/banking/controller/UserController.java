@@ -1,11 +1,13 @@
 package com.online.banking.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,5 +34,14 @@ public class UserController {
 		List<Users> userList = userService.getAllUser(pageNumber, pageSize);
 		return ResponseEntity.status(HttpStatus.OK).body(userList);
 	}
+	
+	@GetMapping("/{userId}")
+	public ResponseEntity<Optional<Users>> getUserById(@PathVariable Long userId) {
+	   Optional<Users> user = userService.getUserById(userId);
+	   return ResponseEntity.status(HttpStatus.OK).body(user);    
+	}
+	
+
+
 
 }

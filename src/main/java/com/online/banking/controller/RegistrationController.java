@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.online.banking.exception.OnlineBankingException;
 import com.online.banking.request.UserRegistrationRequestDto;
 import com.online.banking.service.RegistrationService;
 
@@ -27,8 +28,9 @@ public class RegistrationController {
 
 	@PostMapping("register")
 	public ResponseEntity<String> registerUser(
-			@Valid @RequestBody UserRegistrationRequestDto userRegistrationRequestDto) {
+			@Valid @RequestBody UserRegistrationRequestDto userRegistrationRequestDto) throws OnlineBankingException {
 		String response = registrationService.registerUser(userRegistrationRequestDto);
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
