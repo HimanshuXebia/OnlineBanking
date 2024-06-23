@@ -8,11 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.online.banking.entity.Users;
+import com.online.banking.request.UserRegistrationRequestDto;
 import com.online.banking.service.UserService;
 
 import jakarta.websocket.server.PathParam;
@@ -50,6 +53,13 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public void softDeleteUser(@PathVariable Long id){
 		userService.softDeleteUser(id);
+	}
+	
+	// API to update user details.
+	@PutMapping("/{id}")
+	public ResponseEntity<Users> updateUserDetails(@PathVariable Long id, @RequestBody UserRegistrationRequestDto updatedUser){
+		Users user = userService.updateUserDetails(id, updatedUser);
+		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 
 }
