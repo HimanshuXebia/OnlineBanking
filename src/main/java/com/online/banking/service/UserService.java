@@ -3,23 +3,26 @@ package com.online.banking.service;
 import java.util.List;
 
 import com.online.banking.entity.Users;
+import com.online.banking.exception.OnlineBankingException;
 import com.online.banking.request.UserRegistrationRequestDto;
-import com.online.banking.request.UserUpdateRequestDto;
+import com.online.banking.request.UserStatusRequestDto;
 
 public interface UserService {
 
 	List<Users> getAllUser(Integer pageNumber, Integer pageSize);
 
-	Object getUserById(Long id);
+	Users getUserById(Long id) throws OnlineBankingException;
 
 	List<Users> findByUserName(String userName);
 
 	List<Users> findByEmail(String email);
 
-	void deleteUserById(Long id);
+	String deleteUserById(Long id) throws OnlineBankingException;
 
-	void softDeleteUserById(Long id);
+	String updateUserDeletedStatus(Long id, UserStatusRequestDto userStatusRequestDto) throws OnlineBankingException;
 
-	Users updateUser(Long id, UserRegistrationRequestDto updatedUser);
+	Users updateUser(Long id, UserRegistrationRequestDto updatedUser) throws OnlineBankingException;
+
+	List<Users> searchUsers(String userName, String email);
 
 }

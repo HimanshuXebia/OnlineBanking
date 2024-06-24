@@ -31,7 +31,8 @@ public class Users implements Serializable {
 	private String userName;
 
 //	@Column(nullable = false)
-	//Tried using nullable here to check if that solved the problem of allowing empty objects
+	// Tried using nullable here to check if that solved the problem of allowing
+	// empty objects
 	private String firstName;
 
 	@Column
@@ -191,6 +192,17 @@ public class Users implements Serializable {
 
 	public void setForgotPasswordOtpTime(LocalDateTime forgotPasswordOtpTime) {
 		this.forgotPasswordOtpTime = forgotPasswordOtpTime;
+	}
+
+	@Override
+	public String toString() {
+		return "Users [id=" + id + ", email=" + email + ", userName=" + userName + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + ", dateOfBirth=" + dateOfBirth
+				+ ", registrationOtp=" + registrationOtp + ", registrationOtpTime=" + registrationOtpTime
+				+ ", isBlocked=" + isBlocked + ", isDeleted=" + isDeleted + ", noOfAttempt=" + noOfAttempt
+				+ ", userLockedTime=" + userLockedTime + ", forgotPasswordOtp=" + forgotPasswordOtp
+				+ ", forgotPasswordOtpTime=" + forgotPasswordOtpTime + ", createdDate=" + createdDate + ", deletedDate="
+				+ deletedDate + "]";
 	}
 
 }

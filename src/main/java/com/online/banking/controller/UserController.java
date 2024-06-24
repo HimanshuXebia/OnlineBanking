@@ -7,18 +7,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.online.banking.entity.Users;
+import com.online.banking.exception.OnlineBankingException;
 import com.online.banking.request.UserRegistrationRequestDto;
-import com.online.banking.request.UserUpdateRequestDto;
+import com.online.banking.request.UserStatusRequestDto;
 import com.online.banking.service.UserService;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import jakarta.validation.Valid;
 
 @RequestMapping("/api/v1/")
 @RestController
@@ -33,21 +33,10 @@ public class UserController {
 	}
 
 	@GetMapping("users/search")
-	public ResponseEntity<?> searchUsers(@RequestParam(required = false) String userName,
+	public ResponseEntity<List<Users>> searchUsers(@RequestParam(required = false) String userName,
 			@RequestParam(required = false) String email) {
-		if (userName == null && email == null) {
-			return ResponseEntity.badRequest().body("Either userName or email must be provided.");
-		}
-		List<Users> users;
-		if (userName != null) {
-			users = userService.findByUserName(userName);
-		} else {
-			users = userService.findByEmail(email);
-		}
-		if (users.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No users found.");
-		}
-		return ResponseEntity.ok(users);
+		List<Users> userList = userService.searchUsers(userName, email);
+		return ResponseEntity.ok(userList);
 	}
 
 	@GetMapping
@@ -58,26 +47,31 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(userList);
 	}
 
-	@GetMapping("/user/")
-	public ResponseEntity<Object> getUserById(Long id) {
-//		List<Users> userList = userService.getAllUser(pageNumber, pageSize);
-		Object user = userService.getUserById(id);
+	@GetMapping("/user/{id}")
+	public ResponseEntity<Object> getUserById(@PathVariable Long id) throws OnlineBankingException {
+		Users user = userService.getUserById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 
-	@DeleteMapping("/users/delete/")
-	public void deleteUserById(Long id) {
-		userService.deleteUserById(id);
+	@DeleteMapping("/users/{id}")
+	public ResponseEntity<String> deleteUserById(@PathVariable Long id) throws OnlineBankingException {
+		String response = userService.deleteUserById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+
 	}
 
-	@DeleteMapping("/users/soft-delete-user")
-	public ResponseEntity<String> softDeleteUser(Long id) {
-		userService.softDeleteUserById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("User soft deleted successfully.");
+	@PatchMapping("/users/{id}")
+	public ResponseEntity<String> updateUserDeletedStatus(@PathVariable Long id,
+			@org.springframework.web.bind.annotation.RequestBody UserStatusRequestDto userStatusRequestDto)
+			throws OnlineBankingException {
+		String response = userService.updateUserDeletedStatus(id, userStatusRequestDto);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
-	@PutMapping("/user/update-user/")
-	public ResponseEntity<Users> updateUserDetails(Long id, @RequestBody UserRegistrationRequestDto updatedUser) {
+	@PutMapping("/user/{id}")
+	public ResponseEntity<Users> updateUserDetails(@PathVariable Long id,
+			@org.springframework.web.bind.annotation.RequestBody UserRegistrationRequestDto updatedUser)
+			throws OnlineBankingException {
 		Users user = userService.updateUser(id, updatedUser);
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
