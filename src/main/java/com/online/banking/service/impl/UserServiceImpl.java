@@ -18,6 +18,7 @@ import com.online.banking.entity.Users;
 import com.online.banking.exception.OnlineBankingException;
 import com.online.banking.request.UserRegistrationRequestDto;
 import com.online.banking.request.UserStatusRequestDto;
+import com.online.banking.response.UserPaginationResponse;
 import com.online.banking.service.UserService;
 import com.online.banking.util.ConstantUtil;
 
@@ -35,11 +36,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Users> getAllUser(Integer pageNumber, Integer pageSize) {
+	public UserPaginationResponse getAllUser(Integer pageNumber, Integer pageSize) {
+		UserPaginationResponse response = new UserPaginationResponse();
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		Page<Users> userPage = registerUserRepository.findByIsDeleted(false, pageable);
+		response.setPageNo(pageNumber);
+		response.setPageSize(pageSize);
+		response.setTotalCounts(userPage.getTotalElements());
+		response.setUserList(userPage.getContent());
 //		Optional<Users> registerOptional = registerUserRepository.findById(1L);
-		return userPage.getContent();
+		return response;
 	}
 
 	@Override

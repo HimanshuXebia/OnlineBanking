@@ -6,10 +6,11 @@ import com.online.banking.entity.Users;
 import com.online.banking.exception.OnlineBankingException;
 import com.online.banking.request.UserRegistrationRequestDto;
 import com.online.banking.request.UserStatusRequestDto;
+import com.online.banking.response.UserPaginationResponse;
 
 public interface UserService {
 
-	List<Users> getAllUser(Integer pageNumber, Integer pageSize);
+	UserPaginationResponse getAllUser(Integer pageNumber, Integer pageSize);
 
 	Users getUserById(Long id) throws OnlineBankingException;
 

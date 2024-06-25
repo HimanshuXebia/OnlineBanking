@@ -18,6 +18,7 @@ import com.online.banking.entity.Users;
 import com.online.banking.exception.OnlineBankingException;
 import com.online.banking.request.UserRegistrationRequestDto;
 import com.online.banking.request.UserStatusRequestDto;
+import com.online.banking.response.UserPaginationResponse;
 import com.online.banking.service.UserService;
 
 @RequestMapping("/api/v1/")
@@ -40,11 +41,11 @@ public class UserController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Users>> getAllUser(
+	public ResponseEntity<UserPaginationResponse> getAllUser(
 			@RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
 			@RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
-		List<Users> userList = userService.getAllUser(pageNumber, pageSize);
-		return ResponseEntity.status(HttpStatus.OK).body(userList);
+		UserPaginationResponse response = userService.getAllUser(pageNumber, pageSize);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
 	@GetMapping("/user/{id}")
