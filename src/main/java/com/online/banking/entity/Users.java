@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -21,15 +22,26 @@ public class Users implements Serializable {
 	@Column
 	private Long id;
 
+<<<<<<< HEAD
 	// Email should be unique in db
 	@Column(name = "email", unique=true)
 	private String email;
 
 	// Username should be unique in db
 	@Column(unique=true)
+=======
+	@NotEmpty(message = "Please enter a valid email")
+	@Column(nullable = false, unique = true)
+	private String email;
+
+	@NotEmpty(message = "Please enter a valid user name")
+	@Column(nullable = false, unique = true)
+>>>>>>> 11ea1bb9acc59d536a0eef0cda6d5f27f63379d4
 	private String userName;
 
-	@Column
+//	@Column(nullable = false)
+	// Tried using nullable here to check if that solved the problem of allowing
+	// empty objects
 	private String firstName;
 
 	@Column
@@ -70,6 +82,14 @@ public class Users implements Serializable {
 
 	@Column
 	private LocalDateTime deletedDate;
+
+	public LocalDateTime getDeletedDate() {
+		return deletedDate;
+	}
+
+	public void setDeletedDate(LocalDateTime deletedDate) {
+		this.deletedDate = deletedDate;
+	}
 
 	public String getEmail() {
 		return email;
@@ -183,12 +203,24 @@ public class Users implements Serializable {
 		this.forgotPasswordOtpTime = forgotPasswordOtpTime;
 	}
 
+<<<<<<< HEAD
 	public LocalDateTime getDeletedDate() {
 		return deletedDate;
 	}
 
 	public void setDeletedDate(LocalDateTime deletedDate) {
 		this.deletedDate = deletedDate;
+=======
+	@Override
+	public String toString() {
+		return "Users [id=" + id + ", email=" + email + ", userName=" + userName + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + ", dateOfBirth=" + dateOfBirth
+				+ ", registrationOtp=" + registrationOtp + ", registrationOtpTime=" + registrationOtpTime
+				+ ", isBlocked=" + isBlocked + ", isDeleted=" + isDeleted + ", noOfAttempt=" + noOfAttempt
+				+ ", userLockedTime=" + userLockedTime + ", forgotPasswordOtp=" + forgotPasswordOtp
+				+ ", forgotPasswordOtpTime=" + forgotPasswordOtpTime + ", createdDate=" + createdDate + ", deletedDate="
+				+ deletedDate + "]";
+>>>>>>> 11ea1bb9acc59d536a0eef0cda6d5f27f63379d4
 	}
 
 }
