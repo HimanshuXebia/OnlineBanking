@@ -43,7 +43,9 @@ public class UserRegistrationServiceImpl implements UserRegistrationService{
 
 	@Override 
 	public String registerUser(UserRegistrationRequestDTO userRegistrationRequestDTO) throws AuthException {
+		
 		Users user = modelMapper.map(userRegistrationRequestDTO, Users.class);
+System.out.println("Register : "+userRegistrationRequestDTO.getPassword());
 		if(!isUsernameUnique(user.getUsername())) {
 			throw new AuthException(HttpStatus.BAD_REQUEST,"Username already exists. Please choose a different username.");
 		}

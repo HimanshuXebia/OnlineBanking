@@ -30,9 +30,11 @@ public class UserRegistrationController {
 	}
 	
 	@PostMapping("register")
-	public ResponseEntity<String> registerUser(@Valid @RequestBody UserRegistrationRequestDTO userRegistrationRequestDTO) throws AuthException{
+	public ResponseEntity<String> registerUser(@Valid @org.springframework.web.bind.annotation.RequestBody UserRegistrationRequestDTO userRegistrationRequestDTO) throws AuthException{
+		
 		
 		String Response = userRegistrationService.registerUser(userRegistrationRequestDTO);
+//		System.out.println("register DTO :"+userRegistrationRequestDTO.getPassword());	
 		return ResponseEntity.status(HttpStatus.CREATED).body(Response);
 	}
 	

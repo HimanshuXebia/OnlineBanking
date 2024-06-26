@@ -31,8 +31,9 @@ public class UserLoginController {
 		this.userLoginService = userLoginService;
 	}
 
+
 	@PostMapping("login")
-	public ResponseEntity<String> loginUser(@Valid @RequestBody UserLoginRequestDTO userLoginRequestDTO) throws AuthException{
+	public ResponseEntity<String> loginUser(@Valid @org.springframework.web.bind.annotation.RequestBody UserLoginRequestDTO userLoginRequestDTO) throws AuthException{
 		System.out.println("Login DTO :"+userLoginRequestDTO.getPassword());
 		String Response = userLoginService.loginUser(userLoginRequestDTO);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(Response);
