@@ -1,10 +1,11 @@
 package com.online.banking.dao;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.online.banking.entity.Users;
@@ -12,12 +13,13 @@ import com.online.banking.entity.Users;
 @Repository
 public interface RegisterUserRepository extends JpaRepository<Users, Long> {
 
-	Optional<Users> findByUserName(String userName);
+	List<Users> findByUserName(String userName);
 
-	Optional<Users> findByEmail(String email);
+	List<Users> findByEmail(String email);
 
-	Page<Users> findByIsDeletedFalse(Pageable pageable);
+	Page<Users> findByIsDeleted(boolean isDeleted, Pageable pageable);
 
-	Users findUserByUserNameAndEmail(String userName, String email);
+
+	List<Users> findByUserNameAndEmail(String userName, String email);
 
 }

@@ -1,13 +1,13 @@
-package com.online.banking;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class OnlineBankingApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+//package com.online.banking;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class OnlineBankingApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//}

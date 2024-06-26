@@ -1,25 +1,29 @@
 package com.online.banking.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.online.banking.entity.Users;
 import com.online.banking.exception.OnlineBankingException;
-import com.online.banking.exception.UserNotFoundException;
 import com.online.banking.request.UserRegistrationRequestDto;
-
-
+import com.online.banking.request.UserStatusRequestDto;
+import com.online.banking.response.UserPaginationResponse;
 
 public interface UserService {
 
-	List<Users> getAllUser(Integer pageNumber, Integer pageSize);
-	List<Users> getAllActiveUsers(Integer pageNumber, Integer pageSize);
-	
-	Optional<Users> getUserById(Long userId);
-	void updateUser(Long userId, UserRegistrationRequestDto updateUserRequestDto) throws UserNotFoundException,OnlineBankingException;
-	void deleteUser(Long userId) throws UserNotFoundException;
-	Users findUser(String userName, String email) throws UserNotFoundException,OnlineBankingException;
+	UserPaginationResponse getAllUser(Integer pageNumber, Integer pageSize);
 
+	Users getUserById(Long id) throws OnlineBankingException;
 
+	List<Users> findByUserName(String userName);
+
+	List<Users> findByEmail(String email);
+
+	String deleteUserById(Long id) throws OnlineBankingException;
+
+	String updateUserDeletedStatus(Long id, UserStatusRequestDto userStatusRequestDto) throws OnlineBankingException;
+
+	Users updateUser(Long id, UserRegistrationRequestDto updatedUser) throws OnlineBankingException;
+
+	List<Users> searchUsers(String userName, String email);
 
 }

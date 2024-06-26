@@ -1,35 +1,26 @@
 package com.online.banking.request;
 
 import java.time.LocalDateTime;
-
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-public class UserRegistrationRequestDto {
-
-	
-	private String email;
-
-	@NotEmpty(message = "Please enter valid user name")
+public class UserUpdateRequestDto {
+	@NotEmpty(message = "Please enter a valid user name")
 	private String userName;
 
-	@NotEmpty(message = "Please enter valid first name") 
+	@NotEmpty(message = "Please enter a valid email")
+	@Email(message = "Email should be valid")
+	private String email;
+
+	@NotEmpty(message = "Please enter a valid first name")
 	private String firstName;
 
 	private String lastName;
-
 	private String phoneNumber;
-
 	private LocalDateTime dateOfBirth;
-
 	private UserAddressRequestDto userAddressRequestDto;
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	// Getters and setters
 
 	public String getUserName() {
 		return userName;
@@ -37,6 +28,14 @@ public class UserRegistrationRequestDto {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getFirstName() {
@@ -78,5 +77,4 @@ public class UserRegistrationRequestDto {
 	public void setUserAddressRequestDto(UserAddressRequestDto userAddressRequestDto) {
 		this.userAddressRequestDto = userAddressRequestDto;
 	}
-
 }
